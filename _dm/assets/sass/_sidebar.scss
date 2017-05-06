@@ -1,0 +1,33 @@
+.widget {
+
+  .card-content {
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
+
+  .widget-title{
+    font-size: 20px;
+    margin: 0 0 .7em;
+    text-align: center;
+  }
+  ul {
+    li{
+      font-size: 14px;
+      margin: 0 0 3px 0;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 6px 12px;
+      line-height: 1.2;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      a{
+        color: #4a4a4a;
+        &:hover {
+          color:$mainColor;
+        }
+      }
+    }
+  }
+}

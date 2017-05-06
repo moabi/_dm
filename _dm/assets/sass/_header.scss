@@ -1,0 +1,34 @@
+#masthead{
+  background: #ffffff;
+  margin: 0 0 1em;
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100%;
+  z-index: 9;
+  border-bottom: 1px solid #35b729;
+
+  .nav{
+    background: none;
+  }
+  .section {
+    padding: 1rem 1.5rem;
+  }
+  #svg-logo{
+    margin: 1em auto;
+    display: block;
+    float: none;
+    width: 60px;
+    path {
+      fill:#35b729
+    }
+    text {
+      fill: #fff;
+    }
+  }
+  .custom-header {
+    width: 180px;
+    margin: auto;
+    display: block;
+  }
+}

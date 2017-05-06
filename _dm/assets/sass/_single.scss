@@ -1,0 +1,36 @@
+.single{
+  padding-top: 85px;
+  #masthead{
+    margin-bottom: 0;
+  }
+
+  .single-featured-image-header{
+    height: 300px;
+    max-height: 80vh;
+    width: 100%;
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    h1{
+      background: rgb(255, 255, 255);
+      color: rgb(53, 183, 41);
+      padding: 0 4em;
+      font-size: 18px;
+      position: fixed;
+      top: 78px;
+      left: 0;
+      opacity: 0.95;
+      z-index: 9;
+    }
+  }
+  #content{
+    margin: 2em 0;
+    .section {
+      background: none;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+/*
+Theme Name: _dm
+Author: dm
+Author URI: https://digital-manager.io
+Version: 0.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: dm
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+@import
+"assets/sass/variables",
+"assets/sass/normalize",
+"assets/sass/vendors/animate.css/animate.min.css",
+"assets/sass/bulma",
+"assets/sass/typo",
+"assets/sass/main",
+"assets/sass/header",
+"assets/sass/sidebar",
+"assets/sass/post-card",
+"assets/sass/single",
+"assets/sass/page",
+"assets/sass/share",
+"assets/sass/home";
