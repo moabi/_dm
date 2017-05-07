@@ -32,7 +32,7 @@ function assets_post_type() {
 		'filter_items_list'     => __( 'Filter items list', '_dm' ),
 	);
 	$rewrite = array(
-		'slug'                  => 'post_type',
+		'slug'                  => 'assets',
 		'with_front'            => true,
 		'pages'                 => true,
 		'feeds'                 => true,
@@ -100,7 +100,7 @@ function interview_post_type() {
 		'filter_items_list'     => __( 'Filter items list', '_dm' ),
 	);
 	$rewrite = array(
-		'slug'                  => 'interview_type',
+		'slug'                  => 'interview',
 		'with_front'            => true,
 		'pages'                 => true,
 		'feeds'                 => true,
