@@ -319,7 +319,7 @@ function twentyseventeen_widgets_init() {
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
-	
+
 	register_sidebar( array(
 		'name'          => __( 'Sidebar home', 'twentyseventeen' ),
 		'id'            => 'sidebar-home',
@@ -329,7 +329,16 @@ function twentyseventeen_widgets_init() {
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
-	
+	register_sidebar( array(
+		'name'          => __( 'Sidebar listing', 'twentyseventeen' ),
+		'id'            => 'sidebar-listing',
+		'description'   => __( 'Add widgets here to appear in your sidebar for archive page.', 'twentyseventeen' ),
+		'before_widget' => '<div class="column"><section id="%1$s" class="card widget %2$s"><div class="card-content">',
+		'after_widget'  => '</div></section></div>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
+
 
 	register_sidebar( array(
 		'name'          => __( 'Footer 1', 'twentyseventeen' ),
@@ -530,6 +539,7 @@ require get_parent_theme_file_path( '/inc/customizer.php' );
 
 require get_parent_theme_file_path( '/inc/custom-posts.php' );
 require get_parent_theme_file_path( '/inc/bulma-menu.php' );
+require get_parent_theme_file_path( '/widgets/listing.php' );
 
 /**
  * Disable the emoji's
