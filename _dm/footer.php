@@ -43,10 +43,5 @@
 </div><!-- #page -->
 <?php wp_footer(); ?>
 
-<?php
-if( class_exists('acf') ) {
-	echo get_field('ga','options');
-}
-?>
 </body>
 </html>

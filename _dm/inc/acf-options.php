@@ -15,7 +15,7 @@ if( function_exists('acf_add_local_field_group') ):
 				'key' => 'field_5910b4b86f298',
 				'label' => 'GA',
 				'name' => 'ga',
-				'type' => 'textarea',
+				'type' => 'text',
 				'instructions' => '',
 				'required' => 0,
 				'conditional_logic' => 0,

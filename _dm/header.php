@@ -20,7 +20,14 @@
 <?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<?php
+if( class_exists('acf') ) {
+	$ga_code =  get_field('ga','options');
+} else {
+	$ga_code = '';
+}
+?>
+<body <?php body_class(); ?> data-ga="<?php echo $ga_code; ?>">
 <div id="vue-app" class="site">
 
 	<header id="masthead" class="site-header" role="banner">

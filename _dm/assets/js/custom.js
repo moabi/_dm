@@ -63,6 +63,10 @@ var webApp = new Vue({
     data: {
         activePage: 'shop',
         allowedModalTemplates: [],
+        ga:{
+            code:'',
+            userId: ''
+        },
         host_origin: location.origin,
         i18n: 'en',
         isEmbeddedFormValid: false,
@@ -77,6 +81,7 @@ var webApp = new Vue({
         showPopin: false,
         sidepopin: false,
         tpl: false
+
     },
     beforeCreate:function(){
 
@@ -225,12 +230,23 @@ var webApp = new Vue({
 
     },
     created: function () {
-
+        this.ga.code = $('body').attr('data-ga');
     },
     mounted: function () {
 
     },
     ready: function() {
+        $ga_user_id = this.ga.userId; //'UA-6747896-59'
+        $ga_code = this.ga.code;
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', $ga_code, 'auto');
+        ga('send', 'pageview');
+        ga('set', 'userId', $ga_user_id);
 
     }
 
