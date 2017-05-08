@@ -21,7 +21,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-<div id="page" class="site">
+<div id="vue-app" class="site">
 
 	<header id="masthead" class="site-header" role="banner">
 		<div class="section">
@@ -31,11 +31,6 @@
 					</div>
 					<?php get_template_part( 'template-parts/header/site', 'branding' ); ?>
 					<?php if ( has_nav_menu( 'top' ) ) : ?>
-						<span class="nav-toggle">
-						    <span></span>
-						    <span></span>
-						    <span></span>
-						</span>
 						<?php get_template_part( 'template-parts/navigation/navigation', 'top' ); ?>
 					<?php endif; ?>
 				</nav>

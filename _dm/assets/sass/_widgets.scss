@@ -5,4 +5,19 @@
     font-size: 80%;
     opacity: .7;
   }
+  ul{
+
+    li {
+      &.has-parent {
+        padding-left: 2em;
+        border:none;
+      }
+      .dm-widget-childrens{
+        border-left: none;
+        margin: 0;
+        padding-left: 0.75em;
+      }
+    }
+  }
+
 }

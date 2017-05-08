@@ -12,6 +12,7 @@ class TermsDm_Widget extends WP_Widget {
     
     public $txt_domain = '_dm';
 
+
 	/**
 	 * Register widget with WordPress.
 	 */
@@ -44,26 +45,71 @@ class TermsDm_Widget extends WP_Widget {
 		    $show_empty = $instance['empty'] !== 'false' ? true: false;
 			$count = $instance['count'] ? true: false;
 		    $orderby = ($instance['orderby'] !== '' ) ? $instance['orderby'] : 'name';
+		    $show_desc = $instance['desc'] == 'false' ? true: false;
+
 
 			$terms = get_terms( array(
 				'taxonomy'   => $instance['tax'],
+				'parent'        => 0,
 				'orderby'    => $orderby,
-				'hide_empty' => $show_empty
+				'hide_empty' => $show_empty,
+				'order'     => 'ASC',
+				'childless' => false,
+				'hierarchical' => false
 			) );
 
 			foreach ( $terms as $term ) {
-
 				$count_display = $count ? "<span>(" . $term->count . ")</span>" : '';
-				$desc = $instance['desc'] ? "<em class=\"description is-clearfix\">" . $term->description . "</em>" : '';
-				echo '<li class="id-' . $term->term_id . ' ">' . $term->name ;
+				$desc = ($term->description && $show_desc) ? "<em class=\"description is-clearfix\">" . $term->description . "</em>" : '';
+				echo '<li class="id-' . $term->term_id . '">' . $term->name ;
 				echo $count_display;
 				echo $desc;
+				$childs = $this->get_children_terms($term->term_id,$instance['tax'],$show_empty,$count,$orderby,$show_desc);
+				if($instance['childs'] == 'false'){
+					echo $childs;
+                }
+
 				echo '</li>';
 			}
             echo '</ul>';
             echo '</aside>';
 		}
 		echo $args['after_widget'];
+	}
+
+	/**
+	 * @param $id
+	 * @param $tax
+	 * @param $show_empty
+	 * @param $count
+	 * @param $orderby
+	 * @param $show_desc
+	 *
+	 * @return string
+	 */
+	public function get_children_terms($id,$tax,$show_empty,$count,$orderby,$show_desc){
+		$output = '';
+
+		$terms_childrens = get_terms( array(
+			'taxonomy'   => $tax,
+			'hide_empty' => $show_empty,
+			'orderby'    => $orderby,
+			'parent'        => $id,
+		) );
+		if(!empty($terms_childrens)) {
+			$output .= '<ul class="dm-widget-childrens">';
+			foreach ( $terms_childrens as $child ) {
+				$count_display = $count ? "<span>(" . $child->count . ")</span>" : '';
+				$desc          = ($child->description && $show_desc) ? "<em class=\"description is-clearfix\">" . $child->description . "</em>" : '';
+				$output        .= '<li class="id-' . $child->term_id . ' has-parent ">' . $child->name;
+				$output        .= $count_display;
+				$output        .= $desc;
+				$output        .= '</li>';
+			}
+			$output .= '</ul>';
+		}
+
+		return $output;
 	}
 
 	/**
@@ -126,7 +172,15 @@ class TermsDm_Widget extends WP_Widget {
             <label for="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>"><?php esc_attr_e( 'Show count :', $this->txt_domain ); ?></label>
             <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'count' ) ); ?>" type="checkbox" value="<?php echo esc_attr( $count ); ?>" <?php echo $count_value; ?>>
         </p>
-
+		<?php
+		//SHOW CHILDREN
+		$childs = ! empty( $instance['childs'] ) ? $instance['childs'] : 'false';
+		$childs_value = ($instance['childs'] == true) ? 'checked': '';
+		?>
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'childs' ) ); ?>"><?php esc_attr_e( 'Show childs :', $this->txt_domain ); ?></label>
+            <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'childs' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'childs' ) ); ?>" type="checkbox" value="<?php echo esc_attr( $childs ); ?>" <?php echo $childs_value; ?>>
+        </p>
 		<?php
 	}
 
@@ -145,13 +199,14 @@ class TermsDm_Widget extends WP_Widget {
 
 		//text inputs
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-		$instance['orderby'] = ( ! empty( $new_instance['orderby'] ) ) ? strip_tags( $new_instance['orderby'] ) : '';
+		$instance['orderby'] = ( ! empty( $new_instance['orderby'] ) ) ? strip_tags( $new_instance['orderby'] ) : 'name';
 		$instance['tax'] = ( ! empty( $new_instance['tax'] ) ) ? strip_tags( $new_instance['tax'] ) : '';
 
 		//checkbox
 		$instance['desc'] = ( ! empty( $new_instance['desc'] ) ) ?  $new_instance['desc'] : false;
 		$instance['empty'] = ( ! empty( $new_instance['empty'] ) ) ?  $new_instance['empty'] : false;
 		$instance['count'] = ( ! empty( $new_instance['count'] ) ) ?  $new_instance['count'] : false;
+		$instance['childs'] = ( ! empty( $new_instance['childs'] ) ) ?  $new_instance['childs'] : false;
 
 		return $instance;
 	}
