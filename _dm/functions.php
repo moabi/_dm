@@ -540,6 +540,7 @@ require get_parent_theme_file_path( '/inc/customizer.php' );
 require get_parent_theme_file_path( '/inc/custom-posts.php' );
 require get_parent_theme_file_path( '/inc/clean-theme.php' );
 require get_parent_theme_file_path( '/inc/acf.php' );
+require get_parent_theme_file_path( '/inc/acf-options.php' );
 require get_parent_theme_file_path( '/inc/bulma-menu.php' );
 require get_parent_theme_file_path( '/widgets/listing.php' );
 require get_parent_theme_file_path( '/inc/scripts.php' );
