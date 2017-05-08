@@ -30,7 +30,7 @@ if( class_exists('acf') ) {
 <body <?php body_class(); ?> data-ga="<?php echo $ga_code; ?>">
 <div id="vue-app" class="site">
 
-	<header id="masthead" class="site-header" role="banner">
+	<header id="masthead" class="site-header" role="banner" v-bind:class="{ 'is-hidden': showModal === true }">
 		<div class="section">
 			<div class="container is-paddingless">
 				<nav class="nav">

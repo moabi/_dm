@@ -131,6 +131,19 @@ var webApp = new Vue({
             this.showModalMarketing = false;
             this.showresult = false;
         },
+        closeModalImg:function (e) {
+            $(e.srcElement).parent().toggleClass('is-active');
+            this.showModal = !this.showModal;
+        },
+        createGuid: function() {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                    .toString(16)
+                    .substring(1);
+            }
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                s4() + '-' + s4() + s4() + s4();
+        },
         debounce: function (func, wait, immediate) {
             var timeout;
             return function() {
@@ -213,14 +226,37 @@ var webApp = new Vue({
             this.isEmailValid = regex.test(this.emailClient);
             return regex.test(this.emailClient);
         },
+        modalImg:function (e) {
+            $(e.srcElement).prev().toggleClass('is-active');
+            this.showModal = !this.showModal;
+        },
         openMenu:function () {
             this.showModalMenu = true;
         },
         scrollToDiv: function($div){
             $('html,body').animate({scrollTop: $div.offset().top}, 500);
+        },
+        getModal:function($event){
+
         }
     },
     computed: {
+        getUsrId:function(){
+            if (typeof(Storage) !== "undefined") {
+                $ga_code = localStorage.getItem("ga_code");
+                console.log($ga_code);
+                if(!$ga_code){
+                    $ga_code =  this.createGuid();
+                }
+                localStorage.setItem("ga_code", $ga_code);
+                this.ga.code = $ga_code;
+
+            } else {
+                // Sorry! No Web Storage support..
+
+            }
+            return this.ga.code;
+        },
         root:function(){
             rootUri = this.host_origin + '/'+ this.site_subdirectory ;
             return rootUri;
@@ -231,12 +267,7 @@ var webApp = new Vue({
     },
     created: function () {
         this.ga.code = $('body').attr('data-ga');
-    },
-    mounted: function () {
-
-    },
-    ready: function() {
-        $ga_user_id = this.ga.userId; //'UA-6747896-59'
+        $ga_user_id = this.getUsrId; //'UA-6747896-59'
         $ga_code = this.ga.code;
 
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -247,6 +278,13 @@ var webApp = new Vue({
         ga('create', $ga_code, 'auto');
         ga('send', 'pageview');
         ga('set', 'userId', $ga_user_id);
+
+    },
+    mounted: function () {
+
+    },
+    ready: function() {
+
 
     }
 

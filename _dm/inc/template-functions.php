@@ -108,19 +108,27 @@ function twentyseventeen_is_frontpage() {
  * Attach a class to linked images' parent anchors
  * Works for existing content
  */
-function give_linked_images_class($content) {
+function add_classes_to_linked_images($html) {
+	$classes = 'modal'; // can do multiple classes, separate with space
+	$vue_js = 'v-on:click="getModal($event)"';
 
-	$classes = 'wp-img-link'; // separate classes by spaces - 'img image-link'
+	$patterns = array();
+	$replacements = array();
 
-	// check if there are already a class property assigned to the anchor
-	if ( preg_match('/<a.*? class=".*?"><img/', $content) ) {
-		// If there is, simply add the class
-		$content = preg_replace('/(<a.*? class=".*?)(".*?><img)/', '$1 ' . $classes . '$2', $content);
-	} else {
-		// If there is not an existing class, create a class property
-		$content = preg_replace('/(<a.*?)><img/', '$1 class="' . $classes . '" ><img', $content);
-	}
-	return $content;
+	$patterns[0] = '/<a(?![^>]*class)([^>]*)>\s*<img([^>]*)>\s*<\/a>/'; // matches img tag wrapped in anchor tag where anchor tag where anchor has no existing classes
+	$replacements[0] = '<div\1 class="' . $classes . '" '.$vue_js.'><div class="modal-background"  v-on:click="closeModalImg($event)"></div><div 
+class="modal-content"><p class="image is-4by3"><img\2></p></div><button
+ class="modal-close" v-on:click="closeModalImg($event)"></button></div><img v-on:click="modalImg($event)"\2>';
+
+	$patterns[1] = '/<a([^>]*)class="([^"]*)"([^>]*)>\s*<img([^>]*)>\s*<\/a>/'; // matches img tag wrapped in anchor tag where anchor has existing classes contained in double quotes
+	$replacements[1] = '<span\1class="' . $classes . ' \2"\3 '.$vue_js.'><img\4></span>';
+
+	$patterns[2] = '/<a([^>]*)class=\'([^\']*)\'([^>]*)>\s*<img([^>]*)>\s*<\/a>/'; // matches img tag wrapped in anchor tag where anchor has existing classes contained in single quotes
+	$replacements[2] = '<span\1class="' . $classes . ' \2"\3 '.$vue_js.'><img\4></span>';
+
+	$html = preg_replace($patterns, $replacements, $html);
+
+	return $html;
 }
 
-add_filter('the_content','give_linked_images_class');
+add_filter('the_content', 'add_classes_to_linked_images', 100, 1);
