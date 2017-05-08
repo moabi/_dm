@@ -38,7 +38,7 @@
     width: 80px;
     height: 60px;
     text-align: center;
-    display: inline-block;
+    display: none;
     &.cross {
       path#top,
       path#bottom {
@@ -86,5 +86,15 @@
 
   }
 
+
+}
+
+
+@media screen and (max-width: 768px) {
+  #masthead{
+    #mobile-toggle{
+      display: inline-block;
+    }
+  }
 
 }

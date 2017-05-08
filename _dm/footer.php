@@ -29,7 +29,7 @@
 								'menu_class'     => 'social-links-menu',
 								'depth'          => 1,
 								'link_before'    => '<span class="screen-reader-text">',
-								'link_after'     => '</span>' . twentyseventeen_get_svg( array( 'icon' => 'chain' ) ),
+								'link_after'     => '</span>',
 							) );
 						?>
 					</nav><!-- .social-navigation -->
@@ -43,5 +43,10 @@
 </div><!-- #page -->
 <?php wp_footer(); ?>
 
+<?php
+if( class_exists('acf') ) {
+	echo get_field('ga','options');
+}
+?>
 </body>
 </html>

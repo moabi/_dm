@@ -18,12 +18,15 @@
 		<path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) "></path>
 	</svg>
 </div>
+<div class="nav-right nav-menu animated" v-bind:class="{ 'is-active fadeInDown': showMobileMenu }">
 	<?php wp_nav_menu( array(
 		'theme_location' => 'top',
 		'menu_id'        => 'top-menu',
-		'container_class'       => 'nav-right nav-menu',
+		'container'     => '',
+		//'container_class'       => '',
 		'items_wrap' => '%3$s',
 		'walker'            =>  new bulma_walker_nav_menu
 	) ); ?>
+</div>
 
 

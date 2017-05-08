@@ -194,7 +194,7 @@ var webApp = new Vue({
 
         },
         goToLocation:function($value) {
-            document.location.href = '/' + this.site_subdirectory + '/' + this.i18n + '/' + $value;
+            document.location.href = $value;
         },
         highlightCode:function(){
             console.log('high');
