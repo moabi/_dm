@@ -64,7 +64,7 @@ var webApp = new Vue({
         activePage: 'shop',
         allowedModalTemplates: [],
         ga:{
-            code:'',
+            code:$('body').attr('data-ga'),
             userId: ''
         },
         host_origin: location.origin,
@@ -243,19 +243,19 @@ var webApp = new Vue({
     computed: {
         getUsrId:function(){
             if (typeof(Storage) !== "undefined") {
-                $ga_code = localStorage.getItem("ga_code");
-                console.log($ga_code);
-                if(!$ga_code){
-                    $ga_code =  this.createGuid();
+                $ga_usrId = localStorage.getItem("ga_code");
+                console.log($ga_usrId);
+                if(!$ga_usrId){
+                    $ga_usrId =  this.createGuid();
                 }
-                localStorage.setItem("ga_code", $ga_code);
-                this.ga.code = $ga_code;
+                localStorage.setItem("ga_usrId", $ga_usrId);
+                this.ga.userId = $ga_usrId;
 
             } else {
                 // Sorry! No Web Storage support..
 
             }
-            return this.ga.code;
+            return this.ga.userId;
         },
         root:function(){
             rootUri = this.host_origin + '/'+ this.site_subdirectory ;
