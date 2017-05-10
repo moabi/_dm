@@ -42,6 +42,12 @@
 	</div><!-- .site-content-contain -->
 </div><!-- #page -->
 <?php wp_footer(); ?>
-
+<?php
+if( class_exists('acf') ) {
+	$ga_code =  get_field('before_body_insert','options');
+} else {
+	$ga_code = '';
+}
+?>
 </body>
 </html>

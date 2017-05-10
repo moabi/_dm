@@ -266,7 +266,6 @@ var webApp = new Vue({
 
     },
     created: function () {
-        this.ga.code = $('body').attr('data-ga');
         $ga_user_id = this.getUsrId; //'UA-6747896-59'
         $ga_code = this.ga.code;
 

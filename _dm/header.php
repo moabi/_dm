@@ -18,6 +18,11 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php wp_head(); ?>
+	<?php
+	if( class_exists('acf') ) {
+		echo  get_field('head','options');
+	}
+	?>
 </head>
 
 <?php
@@ -28,6 +33,11 @@ if( class_exists('acf') ) {
 }
 ?>
 <body <?php body_class(); ?> data-ga="<?php echo $ga_code; ?>">
+<?php
+if( class_exists('acf') ) {
+	echo  get_field('after_body_insert','options');
+}
+?>
 <div id="vue-app" class="site">
 
 	<header id="masthead" class="site-header" role="banner" v-bind:class="{ 'is-hidden': showModal === true }">
