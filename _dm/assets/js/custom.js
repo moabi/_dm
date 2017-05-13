@@ -61,7 +61,7 @@ var webApp = new Vue({
     //router,
     el: '#vue-app',
     data: {
-        activePage: 'shop',
+        activePage: '',
         allowedModalTemplates: [],
         host_origin: location.origin,
         i18n: 'en',

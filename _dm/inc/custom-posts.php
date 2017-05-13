@@ -31,12 +31,7 @@ function assets_post_type() {
 		'items_list_navigation' => __( 'Items list navigation', '_dm' ),
 		'filter_items_list'     => __( 'Filter items list', '_dm' ),
 	);
-	$rewrite = array(
-		'slug'                  => 'assets',
-		'with_front'            => true,
-		'pages'                 => true,
-		'feeds'                 => true,
-	);
+
 	$args = array(
 		'label'                 => __( 'Asset', '_dm' ),
 		'description'           => __( 'all the digital manager assets', '_dm' ),
@@ -52,8 +47,8 @@ function assets_post_type() {
 		'can_export'            => true,
 		'has_archive'           => true,		
 		'exclude_from_search'   => true,
-		'publicly_queryable'    => true,
-		'rewrite'               => $rewrite,
+		'publicly_queryable'    => false,
+		'rewrite'               => false,
 		'capability_type'       => 'page',
 		'show_in_rest'          => true,
 	);
