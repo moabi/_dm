@@ -172,3 +172,6 @@ function assets_taxonomy() {
 
 }
 add_action( 'init', 'assets_taxonomy', 0 );
+
+
+

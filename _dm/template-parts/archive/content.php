@@ -24,16 +24,8 @@
 					</a>
 				</figure>
 			</div>
-		<?php } else { ?>
-			<div class="card-image">
-				<figure class="image is-4by3">
-					<a href="<?php echo get_permalink(); ?>">
-					<img src="https://static.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg" width="300" height="200"/>
-					</a>
-				</figure>
-			</div>
-
 		<?php } ?>
+
 
 	<div class="card-content">
 		<header class="entry-header">
