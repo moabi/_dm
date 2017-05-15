@@ -13,7 +13,7 @@
 ?>
 <div class="column is-half is-hidden grid-item">
 <article id="post-<?php the_ID(); ?>"<?php post_class(); ?>>
-	<div class="card">
+	<div class="card assets-card">
 	<div class="card-content">
         <div class="columns">
 			<?php if (has_post_thumbnail()) { ?>
