@@ -25,7 +25,7 @@ get_header(); ?>
 		</header><!-- .page-header -->
 	<?php endif; ?>
 
-	<div id="primary" class="section">
+	<div id="primary" class="section archive-tpl">
 		<main id="main" class="container" role="main">
 
 			<div class="columns">

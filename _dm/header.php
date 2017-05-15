@@ -27,9 +27,9 @@
 
 <?php
 if( class_exists('acf') ) {
-	$ga_code =  get_field('ga','options');
+	$body_tag =  get_field('body_tag','options');
 } else {
-	$ga_code = '';
+	$body_tag = '';
 }
 ?>
 <body <?php body_class(); ?> data-ga="<?php echo $ga_code; ?>">

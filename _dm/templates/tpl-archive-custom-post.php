@@ -9,8 +9,21 @@ get_header();
 	<div id="primary" class="columns">
 		<?php get_sidebar('listing'); ?>
 		<main id="main" class="column" role="main">
+			<?php
+			while ( have_posts() ) : the_post();
 
-            <div class="columns">
+				get_template_part( 'template-parts/page/content', 'page' );
+
+				// If comments are open or we have at least one comment, load up the comment template.
+				if ( comments_open() || get_comments_number() ) :
+					comments_template();
+				endif;
+
+			endwhile; // End of the loop.
+			?>
+
+
+            <div class="columns is-multiline">
             <?php
 
             //get acf otopns
@@ -30,25 +43,14 @@ get_header();
             if ( $the_query->have_posts() ) {
 	            while ( $the_query->have_posts() ) {
 		            $the_query->the_post();
-		            get_template_part( 'template-parts/post/content' );
+		            get_template_part( 'template-parts/post/content', 'grid' );
 	            }
             } else {
                 echo __('no post available','_dm');
             }
             ?>
             </div>
-			<?php
-			while ( have_posts() ) : the_post();
 
-				get_template_part( 'template-parts/page/content', 'page' );
-
-				// If comments are open or we have at least one comment, load up the comment template.
-				if ( comments_open() || get_comments_number() ) :
-					comments_template();
-				endif;
-
-			endwhile; // End of the loop.
-			?>
 
 	</main><!-- #main -->
 

@@ -554,5 +554,6 @@ add_action( 'init', 'process_fn' );
 
 function process_fn() {
 	require get_parent_theme_file_path( '/inc/acf/acf-archive-page.php' );
+	require get_parent_theme_file_path( '/inc/acf/acf-interview.php' );
 }
 

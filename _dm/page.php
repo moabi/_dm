@@ -17,7 +17,7 @@
 
 get_header(); ?>
 
-<div class="section">
+<div class="section page-tpl">
 	<div id="primary" class="columns">
 		<main id="main" class="column" role="main">
 
