@@ -2,7 +2,9 @@
   .section {
     background: none;
   }
-  #main{
-
+  .site-content-contain{
+    background: #33b3db url("assets/images/home/home.jpg");
+    background-size:cover ;
+    background-position: 50% 85%;
   }
 }

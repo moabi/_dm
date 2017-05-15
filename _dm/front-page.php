@@ -14,7 +14,7 @@
 
 get_header(); ?>
 
-<div id="primary" class="content-area">
+<div id="primary" class="content-area tpl-front-page">
 	<main id="main" class="site-main" role="main">
 
 		<?php // Show the selected frontpage content.
