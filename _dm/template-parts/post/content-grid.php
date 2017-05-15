@@ -18,32 +18,32 @@
     <?php post_class(); ?>
 >
 
+
+
+
 	<div class="card">
-
-		<?php if (has_post_thumbnail()) { ?>
-			<div class="card-image">
-				<figure class="image is-4by3">
-					<?php the_post_thumbnail('twentyseventeen-featured-image'); ?>
-				</figure>
-			</div>
-		<?php } else { ?>
-
-
-		<?php } ?>
-
 	<div class="card-content">
-		<header class="entry-header">
-			<?php
+        <div class="columns">
+			<?php if (has_post_thumbnail()) { ?>
+                <div class="column is-2">
+					<?php the_post_thumbnail(array(65,65)); ?>
+                </div>
+                <div class="column">
+                    <header class="entry-header">
+						<?php
 
-			if ( is_single() ) {
-				the_title( '<h1 class="entry-title">', '</h1>' );
-			} elseif ( is_front_page() && is_home() ) {
-				the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-			} else {
-				the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-			}
-			?>
-		</header><!-- .entry-header -->
+						if ( is_single() ) {
+							the_title( '<h1 class="entry-title">', '</h1>' );
+						} elseif ( is_front_page() && is_home() ) {
+							the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+						} else {
+							the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+						}
+						?>
+                    </header><!-- .entry-header -->
+                </div>
+			<?php } ?>
+        </div>
 		<?php
 		if ( is_single() ) {
 			the_content();
@@ -52,7 +52,9 @@
 		}
 
 		?>
+
 	</div><!-- .entry-content -->
 	</div>
+
 </article><!-- #post-## -->
 </div>
