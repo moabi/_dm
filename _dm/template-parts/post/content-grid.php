@@ -12,15 +12,7 @@
 
 ?>
 <div class="column is-half is-hidden grid-item">
-<article
-        v-on:click="goToLocation('<?php echo get_permalink(); ?>')"
-        id="post-<?php the_ID(); ?>"
-    <?php post_class(); ?>
->
-
-
-
-
+<article id="post-<?php the_ID(); ?>"<?php post_class(); ?>>
 	<div class="card">
 	<div class="card-content">
         <div class="columns">
@@ -31,15 +23,14 @@
                 <div class="column">
                     <header class="entry-header">
 						<?php
+    the_title( '<h2 class="entry-title">', '</h2>' );
 
-						if ( is_single() ) {
-							the_title( '<h1 class="entry-title">', '</h1>' );
-						} elseif ( is_front_page() && is_home() ) {
-							the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-						} else {
-							the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-						}
-						?>
+    $link = get_field('links');
+    if($link){
+        echo '<a target="_blank" rel="no-follow" href="'.$link.'">'.$link.'</a>';
+    }
+    ?>
+
                     </header><!-- .entry-header -->
                 </div>
 			<?php } ?>
