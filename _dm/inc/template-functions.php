@@ -132,3 +132,13 @@ class="modal-content"><p class="image is-4by3"><img\2></p></div><button
 }
 
 add_filter('the_content', 'add_classes_to_linked_images', 100, 1);
+
+function remove_http_uris($url) {
+	$disallowed = array('http://www.','https://www.','http://', 'https://');
+	foreach($disallowed as $d) {
+		if(strpos($url, $d) === 0) {
+			return str_replace($d, '', $url);
+		}
+	}
+	return $url;
+}

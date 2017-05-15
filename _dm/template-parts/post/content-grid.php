@@ -27,7 +27,7 @@
 
     $link = get_field('link');
     if($link){
-        echo '<a target="_blank" rel="no-follow" href="'.$link.'">'.$link.'</a>';
+        echo '<a target="_blank" rel="no-follow" href="'.$link.'">'.remove_http_uris($link).'</a>';
     }
     ?>
 
