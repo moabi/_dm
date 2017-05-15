@@ -25,7 +25,7 @@
 						<?php
     the_title( '<h2 class="entry-title">', '</h2>' );
 
-    $link = get_field('links');
+    $link = get_field('link');
     if($link){
         echo '<a target="_blank" rel="no-follow" href="'.$link.'">'.$link.'</a>';
     }
