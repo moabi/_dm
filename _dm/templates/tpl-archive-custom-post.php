@@ -4,10 +4,19 @@ Template Name: Archive custom post
 Template Post Type: page
 */
 get_header();
+$is_sidebar_active = get_field('sidebar');
+
 ?>
 <div class="section">
 	<div id="primary" class="columns">
-		<?php get_sidebar('listing'); ?>
+
+		<?php
+        if($is_sidebar_active){
+	        $sidebar_name = get_field('sidebar_name');
+	        $sname = str_replace('Sidebar-','',$sidebar_name);
+	        get_sidebar($sname);
+        }
+		     ?>
 		<main id="main" class="column" role="main">
 			<?php
 			while ( have_posts() ) : the_post();

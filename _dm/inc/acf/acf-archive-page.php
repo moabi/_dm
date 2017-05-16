@@ -6,10 +6,15 @@
  * Time: 09:36
  */
 if( function_exists('acf_add_local_field_group') ):
+	global $wp_registered_sidebars;
+	$registered_sidebars = [];
+	foreach ( $GLOBALS['wp_registered_sidebars'] as $sidebar ) {
+		$registered_sidebars[ucwords( $sidebar['id'] )] = ucwords( $sidebar['name'] );
+	}
 
 	acf_add_local_field_group(array (
 		'key' => 'group_5916bc1ab5cd5',
-		'title' => 'archive page',
+		'title' => 'Layout style for archive',
 		'fields' => array (
 			array (
 				'key' => 'field_5916bc274d45d',
@@ -140,6 +145,74 @@ if( function_exists('acf_add_local_field_group') ):
 				'return_format' => 'value',
 				'placeholder' => '',
 			),
+			array (
+				'key' => 'field_591a93b600e4e',
+				'label' => 'Sidebar',
+				'name' => 'sidebar',
+				'type' => 'true_false',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'message' => '',
+				'default_value' => 0,
+				'ui' => 0,
+				'ui_on_text' => '',
+				'ui_off_text' => '',
+			),
+			array (
+				'key' => 'field_591a93c700e4f',
+				'label' => 'sidebar name',
+				'name' => 'sidebar_name',
+				'type' => 'select',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => array (
+					array (
+						array (
+							'field' => 'field_591a93b600e4e',
+							'operator' => '==',
+							'value' => '1',
+						),
+					),
+				),
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'choices' => $registered_sidebars,
+				'default_value' => array (
+					0 => '',
+				),
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+			),
+			array (
+				'key' => 'field_591a93fb00e50',
+				'label' => 'content type',
+				'name' => 'content_type',
+				'type' => 'text',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+			),
 		),
 		'location' => array (
 			array (
@@ -151,7 +224,7 @@ if( function_exists('acf_add_local_field_group') ):
 			),
 		),
 		'menu_order' => 0,
-		'position' => 'normal',
+		'position' => 'side',
 		'style' => 'default',
 		'label_placement' => 'top',
 		'instruction_placement' => 'label',
