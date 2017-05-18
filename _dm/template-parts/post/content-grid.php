@@ -16,24 +16,35 @@
 	<div class="card assets-card">
 	<div class="card-content">
         <div class="columns">
-			<?php if (has_post_thumbnail()) { ?>
+
                 <div class="column is-2">
-					<?php the_post_thumbnail(array(65,65)); ?>
+                    <?php
+                    $link = get_field('link');
+                    $parse = parse_url($link);
+                    $host = isset($parse['host']) ? $parse['host'] : '';
+                    ?>
+					<?php
+                    if(has_post_thumbnail()){
+	                    the_post_thumbnail(array(65,65));
+                    } else {
+                        echo '<img src="https://logo.clearbit.com/'.$host.'" alt="'.get_the_title().'"/>';
+                    }
+                     ?>
                 </div>
                 <div class="column">
                     <header class="entry-header">
 						<?php
     the_title( '<h2 class="entry-title">', '</h2>' );
 
-    $link = get_field('link');
-    if($link){
-        echo '<a target="_blank" rel="no-follow" href="'.$link.'">'.remove_http_uris($link).'</a>';
+    if($link) {
+	    echo '<a target="_blank" rel="no-follow" href="' . $link . '">' . remove_http_uris( $link ) . '</a>';
     }
+
     ?>
 
                     </header><!-- .entry-header -->
                 </div>
-			<?php } ?>
+
         </div>
 		<?php
 		if ( is_single() ) {

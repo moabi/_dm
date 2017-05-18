@@ -37,6 +37,7 @@ function assets_post_type() {
 		'description'           => __( 'all the digital manager assets', '_dm' ),
 		'labels'                => $labels,
 		'supports'              => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail','post-formats' ),
+		'taxonomies'            => array('post_tag'),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
