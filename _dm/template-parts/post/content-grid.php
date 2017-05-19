@@ -43,17 +43,18 @@
     ?>
 
                     </header><!-- .entry-header -->
+	                <?php
+	                if ( is_single() ) {
+		                the_content();
+	                } else {
+		                the_excerpt();
+	                }
+
+	                ?>
                 </div>
 
         </div>
-		<?php
-		if ( is_single() ) {
-			the_content();
-		} else {
-			the_excerpt();
-		}
 
-		?>
 
 	</div><!-- .entry-content -->
 	</div>
