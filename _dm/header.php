@@ -23,6 +23,13 @@
 		echo  get_field('head','options');
 	}
 	?>
+<style>
+    <?php
+$css = '.home .site-content-contain {background-image: url( '.get_field('home-background','option').'); }';
+$css .= get_field('custom_css','option');
+echo $css;
+ ?>
+</style>
 </head>
 
 <?php

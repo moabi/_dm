@@ -11,9 +11,8 @@
  */
 
 ?>
-<div class="column is-half">
-<article
-        v-on:click="goToLocation('<?php echo get_permalink(); ?>')"
+<div class="column is-4">
+<article v-on:click="goToLocation('<?php echo get_permalink(); ?>')"
         id="post-<?php the_ID(); ?>"
     <?php post_class(); ?>
 >
@@ -48,7 +47,7 @@
 		if ( is_single() ) {
 			the_content();
 		} else {
-			the_excerpt();
+			echo excerpt('20');
 		}
 
 		?>
