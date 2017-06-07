@@ -45,7 +45,7 @@ $is_sidebar_active = get_field('sidebar');
 
                 foreach($terms as $term) {
 
-	                echo '<div class="column is-12">';
+	                echo '<div class="column is-12 term-'.$term->slug.'">';
 	                echo '<h2>' . $term->name . '</h2>';
 	                echo '</div>';
 
@@ -67,7 +67,11 @@ $is_sidebar_active = get_field('sidebar');
 		                'order'               => $order,
 		                'orderby'             => $orderby,
 		                'tax_query'           => array(
-			                $terms_arg
+			                array(
+				                'taxonomy' => 'type',
+				                'field'    => 'slug',
+				                'terms'    => $term->slug,
+			                )
 		                ),
 	                );
 	                $the_query      = new WP_Query( $arguments );
@@ -76,6 +80,7 @@ $is_sidebar_active = get_field('sidebar');
 			                $the_query->the_post();
 			                get_template_part( 'template-parts/post/content', 'grid' );
 		                }
+		                wp_reset_postdata();
 	                }
                 }
 
