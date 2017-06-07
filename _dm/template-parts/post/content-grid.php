@@ -11,7 +11,14 @@
  */
 
 ?>
-<div class="column is-half is-hidden grid-item">
+<?php
+$terms = wp_get_post_terms($post->ID,'type');
+$terms_slugs = '';
+foreach($terms as $term){
+    $terms_slugs .= $term->slug.' ';
+}
+?>
+<div data-filter="<?php echo $terms_slugs; ?>" class="column is-half is-hidden grid-item">
 <article id="post-<?php the_ID(); ?>"<?php post_class(); ?>>
 	<div class="card assets-card">
 	<div class="card-content">

@@ -40,13 +40,44 @@ class TermsDm_Widget extends WP_Widget {
 
 
 		if ( ! empty( $instance['tax'] ) ) {
+			$link_to = isset($instance['link_to']) ? intval($instance['link_to']): 0;
 		    echo '<aside class="menu ">';
 		    echo '<ul class="menu-list">';
+			if($link_to == 2) {
+			    echo '<div id="grid-filter">';
+				echo '<grid-filter v-on:click="filterDataList()">';
+                echo 'Sort by name';
+                echo '</grid-filter>';
+                echo '</div>';
+			}
+
 		    $show_empty = $instance['empty'] !== 'false' ? true: false;
 			$count = $instance['count'] ? true: false;
 		    $orderby = ($instance['orderby'] !== '' ) ? $instance['orderby'] : 'name';
 		    $show_desc = $instance['desc'] == 'false' ? true: false;
 
+		    switch ($link_to){
+                case 0:
+	                $link_class = 'none';
+	                break;
+                case 1:
+	                $link_class = 'link-to-tax';
+	                break;
+                case 2:
+	                $link_class = 'js-list-filter';
+	                break;
+                default:
+	                $link_class = 'default-link';
+            }
+
+			if($link_to == 2) {
+				wp_enqueue_script(
+					'widget-listing',
+					get_template_directory_uri() . '/widgets/listing.js',
+					array ('jquery','vue-js'),
+					'2.3.2',
+					true);
+			}
 
 			$terms = get_terms( array(
 				'taxonomy'   => $instance['tax'],
@@ -61,18 +92,43 @@ class TermsDm_Widget extends WP_Widget {
 			foreach ( $terms as $term ) {
 				$count_display = $count ? "<span>(" . $term->count . ")</span>" : '';
 				$desc = ($term->description && $show_desc) ? "<em class=\"description is-clearfix\">" . $term->description . "</em>" : '';
-				echo '<li class="id-' . $term->term_id . '">' . $term->name ;
+				$slug = isset($term->slug) ? $term->slug : '';
+				$link = ($link_to == 1) ? get_term_link($slug,$instance['tax']) : '#';
+
+				echo '<li class="wl-name id-' . $term->term_id . '">';
+				if($link_to !== 0){
+					echo '<a class="'.$link_class.'" data-sort="'.$link.'" href="'.$link.'">';
+                }
+
+                echo $term->name ;
 				echo $count_display;
 				echo $desc;
-				$childs = $this->get_children_terms($term->term_id,$instance['tax'],$show_empty,$count,$orderby,$show_desc);
+				if($link_to !== 0) {
+					echo '</a>';
+				}
+                $childs_args = array(
+                    'term_id'       =>    $term->term_id,
+                    'tax'           =>    $instance['tax'],
+                    'show_empty'    =>    $show_empty,
+                    'count'         =>    $count,
+                    'orderby'       => $orderby,
+                    'show_desc'     => $show_desc,
+                    'link'          => $link_to,
+                    'link_class'    => $link_class,
+
+                );
+				$childs = $this->get_children_terms($childs_args);
 				if($instance['childs'] == 'false'){
 					echo $childs;
                 }
+
 
 				echo '</li>';
 			}
             echo '</ul>';
             echo '</aside>';
+
+
 		}
 		echo $args['after_widget'];
 	}
@@ -87,23 +143,31 @@ class TermsDm_Widget extends WP_Widget {
 	 *
 	 * @return string
 	 */
-	public function get_children_terms($id,$tax,$show_empty,$count,$orderby,$show_desc){
+	public function get_children_terms($args){
 		$output = '';
 
 		$terms_childrens = get_terms( array(
-			'taxonomy'   => $tax,
-			'hide_empty' => $show_empty,
-			'orderby'    => $orderby,
-			'parent'        => $id,
+			'taxonomy'   => $args['tax'],
+			'hide_empty' => $args['show_empty'],
+			'orderby'    => $args['orderby'],
+			'parent'        => $args['term_id'],
 		) );
 		if(!empty($terms_childrens)) {
 			$output .= '<ul class="dm-widget-childrens">';
 			foreach ( $terms_childrens as $child ) {
-				$count_display = $count ? "<span>(" . $child->count . ")</span>" : '';
-				$desc          = ($child->description && $show_desc) ? "<em class=\"description is-clearfix\">" . $child->description . "</em>" : '';
+				$count_display = $args['count'] ? "<span>(" . $child->count . ")</span>" : '';
+				$desc          = ($child->description && $args['count']) ? "<em class=\"description is-clearfix\">" . $child->description . "</em>" : '';
 				$output        .= '<li class="id-' . $child->term_id . ' has-parent ">' . $child->name;
+				if($args['link'] !== 0){
+					$output        .= '<a href="" class="'.$args['link_class'].'">';
+                }
+
 				$output        .= $count_display;
 				$output        .= $desc;
+				if($args['link'] !== 0){
+					$output        .= '</a>';
+				}
+
 				$output        .= '</li>';
 			}
 			$output .= '</ul>';
@@ -132,7 +196,14 @@ class TermsDm_Widget extends WP_Widget {
 		?>
         <p>
             <label for="<?php echo esc_attr( $this->get_field_id( 'tax' ) ); ?>"><?php esc_attr_e( 'From taxonomy:', $this->txt_domain ); ?></label>
-            <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'tax' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'tax' ) ); ?>" type="text" value="<?php echo esc_attr( $tax ); ?>">
+            <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'tax' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'tax' ) ); ?>">
+                <?php $taxonomies = get_taxonomies();
+
+                foreach ( $taxonomies as $taxonomy ) {
+	                echo '<option '.$this->selected_option('selected',$taxonomy,$tax).' value="' . $taxonomy . '">' . $taxonomy . '</option>';
+                }
+                ?>
+            </select>
         </p>
 
 		<?php
@@ -140,8 +211,15 @@ class TermsDm_Widget extends WP_Widget {
 		$orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : '';
 		?>
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>"><?php esc_attr_e( 'Order by: (name, slug, term_group, term_id, id, description)', $this->txt_domain ); ?></label>
-            <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'orderby' ) ); ?>" type="text" value="<?php echo esc_attr( $orderby ); ?>">
+            <label for="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>"><?php esc_attr_e( 'Order by:', $this->txt_domain ); ?></label>
+            <select id="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>" class="widefat" name="<?php echo esc_attr( $this->get_field_name( 'orderby' ) ); ?>">
+                <option <?php echo $this->selected_option('selected','name',$orderby); ?> value="name">Name</option>
+                <option <?php echo $this->selected_option('selected','slug',$orderby); ?> value="slug">slug</option>
+                <option <?php echo $this->selected_option('selected','term_group',$orderby); ?> value="term_group">term_group</option>
+                <option <?php echo $this->selected_option('selected','term_id',$orderby); ?> value="term_id">term_id</option>
+                <option <?php echo $this->selected_option('selected','id',$orderby); ?> value="id">id</option>
+                <option <?php echo $this->selected_option('selected','description',$orderby); ?> value="description">description</option>
+            </select>
         </p>
 
 		<?php
@@ -175,15 +253,41 @@ class TermsDm_Widget extends WP_Widget {
 		<?php
 		//SHOW CHILDREN
 		$childs = ! empty( $instance['childs'] ) ? $instance['childs'] : 'false';
-		$childs_value = ($instance['childs'] == true) ? 'checked': '';
+		$childs_value = ($instance['childs'] == true) ? 'selected': '';
 		?>
         <p>
             <label for="<?php echo esc_attr( $this->get_field_id( 'childs' ) ); ?>"><?php esc_attr_e( 'Show childs :', $this->txt_domain ); ?></label>
             <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'childs' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'childs' ) ); ?>" type="checkbox" value="<?php echo esc_attr( $childs ); ?>" <?php echo $childs_value; ?>>
         </p>
 		<?php
+		//Link to
+		$link_to_val = ! empty( $instance['link_to'] ) ? intval($instance['link_to']) : 0;
+		?>
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'link_to' ) ); ?>"><?php esc_attr_e( 'Link to :', $this->txt_domain ); ?></label>
+            <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'link_to' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'link_to' ) ); ?>">
+                <option value="0" <?php echo $this->selected_option('selected',$link_to_val,0); ?>>none</option>
+                <option value="1" <?php echo $this->selected_option('selected',$link_to_val,1); ?>>link</option>
+                <option value="2" <?php echo $this->selected_option('selected',$link_to_val,2); ?>>taxonomy</option>
+            </select>
+        </p>
+
+		<?php
 	}
 
+	/**
+	 * @param $attr
+	 * @param $sel_val
+	 * @param $option
+	 */
+	public function selected_option($attr,$sel_val,$option){
+	    $output = '';
+	    if($sel_val == $option){
+	        $output .= $attr;
+        }
+
+        return $output;
+    }
 	/**
 	 * Sanitize widget form values as they are saved.
 	 *
@@ -207,6 +311,7 @@ class TermsDm_Widget extends WP_Widget {
 		$instance['empty'] = ( ! empty( $new_instance['empty'] ) ) ?  $new_instance['empty'] : false;
 		$instance['count'] = ( ! empty( $new_instance['count'] ) ) ?  $new_instance['count'] : false;
 		$instance['childs'] = ( ! empty( $new_instance['childs'] ) ) ?  $new_instance['childs'] : false;
+		$instance['link_to'] = ( ! empty( $new_instance['link_to'] ) ) ?  $new_instance['link_to'] : 0;
 
 		return $instance;
 	}
