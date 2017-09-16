@@ -15,7 +15,6 @@ var demo = new Vue({
             'name': 'CMS'
         },
         assets_posts: [],
-        apiURL : 'https://api.github.com/repos/vuejs/vue/commits?per_page=3&sha=',
         root: document.location.href,
         wpasset: 'wp-json/wp/v2/assets_post_type?per_page=99&type=',
         terms_route: 'wp-json/wp/v2/type?per_page=99'
