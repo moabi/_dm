@@ -38,9 +38,6 @@ get_header(); ?>
 					echo '<div class="columns">';
 					echo '<div class="column is-11 is-offset-1">';
 
-					if ( comments_open() || get_comments_number() ) :
-						comments_template();
-					endif;
 					echo '</div>';
 					echo '</div>';
 

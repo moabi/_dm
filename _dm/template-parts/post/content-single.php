@@ -31,16 +31,6 @@
 				<?php include_once get_template_directory().'/inc/social-share.php'; ?>
 			</section>
 
-	<?php
-	if ( 'post' === get_post_type() ) :
-		echo '<div class="entry-meta">';
-		if ( is_single() ) :
-			twentyseventeen_posted_on();
-		endif;
-		echo '</div><!-- .entry-meta -->';
-	endif;
-
-	?>
 		</footer>
 	</div>
 </article><!-- #post-## -->
