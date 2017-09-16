@@ -12,7 +12,7 @@ var demo = new Vue({
         terms: [],
         currentTerm: {
             'id': 13,
-            'name': 'CMS'
+            'name': 'BLOG'
         },
         assets_posts: [],
         root: document.location.href,
