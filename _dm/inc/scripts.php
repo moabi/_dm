@@ -25,21 +25,21 @@ function add_theme_scripts() {
 		'2.3.2',
 		true);
 
-	wp_enqueue_script(
+/*	wp_enqueue_script(
 		'custom',
 		get_template_directory_uri() . '/assets/js/custom.js',
 		array ('jquery'),
 		1.1,
 		true);
 
-	if(is_page_template('templates/tpl-archive-custom-post.php')){
+
 		wp_enqueue_script(
 			'archive-cp',
 			get_template_directory_uri() . '/assets/js/archive-cp.js',
 			array ('jquery'),
 			1.1,
-			true);
-	}
+			true);*/
+
 
 
 }

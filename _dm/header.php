@@ -47,20 +47,17 @@ if( class_exists('acf') ) {
 ?>
 <div id="vue-app" class="site">
 
-	<header id="masthead" class="site-header" role="banner" v-bind:class="{ 'is-hidden': showModal === true }">
-		<div class="section">
-			<div class="container is-paddingless">
-				<nav class="nav">
-					<div class="nav-left">
-					</div>
-					<?php get_template_part( 'template-parts/header/site', 'branding' ); ?>
-					<?php if ( has_nav_menu( 'top' ) ) : ?>
-						<?php get_template_part( 'template-parts/navigation/navigation', 'top' ); ?>
-					<?php endif; ?>
-				</nav>
-			</div>
-		</div>
-	</header><!-- #masthead -->
+<!--	<header id="masthead" class="site-header" role="banner">-->
+<!--		<div class="section">-->
+<!--			<div class="container is-paddingless">-->
+<!--				<nav class="nav">-->
+<!--					<div class="nav-left">-->
+<!--					</div>-->
+<?php //get_template_part( 'template-parts/header/site', 'branding' ); ?>
+<!--				</nav>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</header><!-- #masthead -->
 
 	<?php
 	// If a regular post or page, and not the front page, show the featured image.

@@ -428,6 +428,12 @@ function twentyseventeen_scripts() {
 		wp_enqueue_style( 'twentyseventeen-colors-dark', get_theme_file_uri( '/assets/css/colors-dark.css' ), array( 'twentyseventeen-style' ), '1.0' );
 	}
 
+	if(get_page_template_slug() == 'templates/assets.php'){
+	  wp_enqueue_style( 'assets', get_stylesheet_directory_uri().'/assets/css/tpl/assets.css', array(), null );
+	  wp_enqueue_script('assets-vue',get_stylesheet_directory_uri().'/assets/js/tpl/assets.js',array('vue-js','jquery'),'1.01',true);
+  }
+
+
 
 
 

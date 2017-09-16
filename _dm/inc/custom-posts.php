@@ -52,6 +52,7 @@ function assets_post_type() {
 		'rewrite'               => false,
 		'capability_type'       => 'page',
 		'show_in_rest'          => true,
+		'query_var'             => true
 	);
 	register_post_type( 'assets_post_type', $args );
 
@@ -120,6 +121,7 @@ function interview_post_type() {
 		'rewrite'               => $rewrite,
 		'capability_type'       => 'page',
 		'show_in_rest'          => true,
+		'query_var'             => true
 	);
 	register_post_type( 'interview_post_type', $args );
 
@@ -168,6 +170,25 @@ function assets_taxonomy() {
 
 }
 add_action( 'init', 'assets_taxonomy', 0 );
+
+
+
+// Add custom fields to json response
+function slug_register_featured() {
+	register_rest_field( 'assets_post_type',
+		'link',
+		array(
+			'get_callback'    => 'get_meta_to_response',
+			'update_callback' => null,
+			'schema'          => null,
+		)
+	);
+}
+add_action( 'rest_api_init', 'slug_register_featured' );
+
+function get_meta_to_response( $object, $field_name, $request ) {
+	return get_post_meta( $object[ 'id' ], $field_name, true );
+}
 
 
 
