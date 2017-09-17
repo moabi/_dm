@@ -8,7 +8,11 @@
         <ul class="menu">
 
           <template v-for="term in terms">
-          <li style="margin: .5em 0;cursor: pointer;" class="tag is-large" v-on:click="currentTerm = term" :id="term.slug">
+          <li
+              v-bind:class="{ active: term.slug === currentTerm.slug }"
+              class="tag is-large"
+              v-on:click="currentTerm = term"
+              :id="term.slug">
         {{ term.name }} ({{ term.count }})
           </li>
           </template>
@@ -34,7 +38,11 @@
                 <div class="card-content">
                   <div class="columns">
                     <div class="column is-2 only-desktop">
-                      <img v-bind:src=" post.link | clearBit" v-bind:alt="post.title.rendered">
+                      <img
+                          :src=" post.link | clearBit"
+                          :alt="post.title.rendered"
+                          class="cie-logo"
+                      />
                     </div>
                     <div class="column">
                       <header class="entry-header">

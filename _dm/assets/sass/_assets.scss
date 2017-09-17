@@ -28,12 +28,19 @@
     left: 0;
     width: 100%;
     z-index: 99;
-    ul{
-      li{
-        margin: 1em;
+  }
+  ul{
+    li{
+      margin: .5em 0;
+      cursor: pointer;
+      &.active{
+        color: orangered;
+      }
+      .cie-logo{
+        font-size: 10px;
+        font-style: italic;
       }
     }
-
   }
 }
 @media screen and (max-width: 768px){

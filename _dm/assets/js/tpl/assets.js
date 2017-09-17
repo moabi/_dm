@@ -30,6 +30,7 @@ var demo = new Vue({
         currentTerm: function (termID) {
             this.currentTerm = termID;
             this.fetchData();
+
         }
     },
 
@@ -70,6 +71,11 @@ var demo = new Vue({
                     console.log(xhr.responseText)
                 }
                 self.showMobileMenu = false;
+                $('.cie-logo').each(function(){
+                    $(this).on('error', function(){
+                        $(this).attr({src: 'https://logo.clearbit.com/http.cat/'});
+                    });
+                });
 
             };
             xhr.send();
