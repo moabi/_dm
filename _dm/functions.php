@@ -430,7 +430,7 @@ function twentyseventeen_scripts() {
 
 	if(get_page_template_slug() == 'templates/assets.php'){
 
-	  wp_enqueue_script('assets-vue',get_stylesheet_directory_uri().'/assets/js/tpl/assets.js',array('vue-js','jquery'),'1.01',true);
+	  wp_enqueue_script('assets-vue',get_stylesheet_directory_uri().'/assets/js/tpl/assets.min.js',array('vue-js','jquery'),'1.01',true);
   }
 
 
