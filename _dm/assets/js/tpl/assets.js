@@ -17,7 +17,8 @@ var demo = new Vue({
         assets_posts: [],
         root: document.location.href,
         wpasset: 'wp-json/wp/v2/assets_post_type?per_page=99&type=',
-        terms_route: 'wp-json/wp/v2/type?per_page=99'
+        terms_route: 'wp-json/wp/v2/type?per_page=99',
+        showMobileMenu:false
     },
 
     created: function () {
@@ -68,6 +69,7 @@ var demo = new Vue({
                 } catch (e){
                     console.log(xhr.responseText)
                 }
+                self.showMobileMenu = false;
 
             };
             xhr.send();
