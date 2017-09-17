@@ -64,15 +64,6 @@ if( class_exists('acf') ) {
 	if ( has_post_thumbnail() && ( is_single() || ( is_page() && ! twentyseventeen_is_frontpage() ) ) ) :
 		echo '<div class="single-featured-image-header hero is-primary" style="background-image: url('.get_the_post_thumbnail_url().')">';
 		//the_post_thumbnail( 'twentyseventeen-featured-image' );
-		echo '<div class="hero-foot">';
-		echo '<div class="container">';
-		echo '<div class="tabs is-centered">';
-		echo '<h1>';
-		echo get_the_title();
-		echo '</h1>';
-		echo '</div>';
-		echo '</div>';
-		echo '</div>';
 		echo '</div><!-- .single-featured-image-header -->';
 	endif;
 	?>

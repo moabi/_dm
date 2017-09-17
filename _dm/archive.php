@@ -27,13 +27,8 @@ get_header(); ?>
 
 	<div id="primary" class="section archive-tpl">
 		<main id="main" class="container" role="main">
-
-			<div class="columns">
-                <div class="column is-4">
-					<?php get_sidebar('listing'); ?>
-                </div>
-                <div class="column is-8">
-                    <div class="columns">
+<div class="container">
+                    <div class="columns is-mobile is-multiline">
 	                <?php if ( have_posts() ) : ?>
 		                <?php
 		                /* Start the Loop */
@@ -60,11 +55,8 @@ get_header(); ?>
 
 	                endif; ?>
                     </div>
-                </div>
+</div>
 
-
-
-			</div>
 		</main><!-- #main -->
 	</div><!-- #primary -->
 </div><!-- .wrap -->

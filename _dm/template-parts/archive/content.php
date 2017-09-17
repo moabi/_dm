@@ -11,7 +11,7 @@
  */
 
 ?>
-<div class="column is-4">
+<div class="column is-half">
 <article id="post-<?php the_ID(); ?>" <?php post_class('content'); ?>>
 
 	<div class="card">
