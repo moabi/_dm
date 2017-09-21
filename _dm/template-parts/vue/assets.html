@@ -1,29 +1,31 @@
 <div id="mobile-menu" v-on:click="showMobileMenu = !showMobileMenu">TAGS</div>
 <div class="tile is-ancestor">
   <div class="tile is-parent is-light">
-
+    <div class="tile">
       <div class="content">
         <div id="side-menu" v-bind:class="{ mobile: showMobileMenu }">
           <span id="mobile-closer" v-on:click="showMobileMenu = !showMobileMenu">FERMER</span>
-        <ul class="menu">
+          <div class="">
 
-          <template v-for="term in terms">
-          <li
-              v-bind:class="{ active: term.slug === currentTerm.slug }"
-              class="tag is-large"
-              v-on:click="currentTerm = term"
-              :id="term.slug">
-        {{ term.name }} ({{ term.count }})
-          </li>
-          </template>
+            <template v-for="term in terms">
+              <div class="field">
+              <div
+                  v-bind:class="{ active: term.slug === currentTerm.slug }"
+                  class="tag is-medium"
+                  v-on:click="currentTerm = term"
+                  :id="term.slug">
+                {{ term.name }} ({{ term.count }})
+              </div>
+              </div>
+            </template>
 
-        </ul>
+          </div>
         </div>
 
       </div>
-
+    </div>
   </div>
-  <div class="tile is-vertical is-9">
+  <div class="tile is-parent is-vertical is-9">
     <article class="tile is-child notification is-white">
       <div class="content">
         <p class="title">{{ currentTerm.name }}</p>
