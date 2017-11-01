@@ -1,5 +1,5 @@
 <?php $comment_args = array(
-	'title_reply' => 'Got Something To Say:',
+	'title_reply' => 'Commentaires :',
 
 	'fields' => apply_filters( 'comment_form_default_fields', array(
 
@@ -30,6 +30,8 @@ name="comment" cols="45" rows="8" aria-required="true" class="textarea"></textar
 	                   '</p>',
 
 	'comment_notes_after' => '',
+	'class_submit'  => 'submit button is-primary',
+	'class_form'    => 'form comment-form'
 
 );
 
