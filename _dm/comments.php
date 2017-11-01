@@ -103,7 +103,7 @@
 		<?php
 	endif;
 
-	comment_form();
+	include_once 'comment-form.php';
 	?>
 
 </div><!-- #comments -->
