@@ -22,6 +22,7 @@ name="comment" cols="45" rows="8" aria-required="true" class="textarea"></textar
 	                   '</div>',
 
 	'comment_notes_after' => '',
+	'comment_notes_before' => '',
 	'class_submit'  => 'submit button is-primary',
 	'class_form'    => 'form comment-form'
 
