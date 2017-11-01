@@ -15,7 +15,7 @@ id="author" class="input" name="author" type="text" value="' . esc_attr( $commen
 
 		           ( $req ? '<span>*</span>' : '' ) .
 
-		           '<input id="email" class="email" name="email" type="text" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' />' . '</p>',
+		           '<input id="email" class="email input" name="email" type="text" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' />' . '</p>',
 
 		'url' => ''
 	) ),
