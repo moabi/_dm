@@ -14,7 +14,7 @@ get_header();
 
 
 				include dirname(__DIR__).'/template-parts/vue/assets.html';
-		  get_template_part( 'template-parts/page/content', 'page' );
+		    get_template_part( 'template-parts/page/content', 'page' );
 			endwhile; // End of the loop.
 			?>
 

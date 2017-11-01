@@ -22,18 +22,10 @@ get_header(); ?>
 				while ( have_posts() ) : the_post();
 
 					get_template_part( 'template-parts/post/content-single', get_post_format() );
-
-//					echo '<div class="columns">';
-//					echo '<div class="column is-11 is-offset-1">';
-//					the_post_navigation( array(
-//						'prev_text'                  => __( '%title' ),
-//						'next_text'                  => __( '%title' ),
-//						'screen_reader_text' => __( ' ' ),
-//					) );
-//					echo '</div>';
-//					echo '</div>';
-
-					// If comments are open or we have at least one comment, load up the comment template.
+			// If comments are open or we have at least one comment, load up the comment template.
+			if ( comments_open() || get_comments_number() ) :
+				comments_template();
+			endif;
 
 					echo '<div class="columns">';
 					echo '<div class="column is-11 is-offset-1">';

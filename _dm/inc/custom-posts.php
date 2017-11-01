@@ -59,7 +59,58 @@ function assets_post_type() {
 }
 add_action( 'init', 'assets_post_type', 0 );
 
+// Register Custom Taxonomy
+function assets_taxonomy() {
 
+	$labels = array(
+		'name'                       => _x( 'types', 'Taxonomy General Name', '_dm' ),
+		'singular_name'              => _x( 'type', 'Taxonomy Singular Name', '_dm' ),
+		'menu_name'                  => __( 'Type', '_dm' ),
+		'all_items'                  => __( 'All types', '_dm' ),
+		'parent_item'                => __( 'type Item', '_dm' ),
+		'parent_item_colon'          => __( 'type Item:', '_dm' ),
+		'new_item_name'              => __( 'New type Name', '_dm' ),
+		'add_new_item'               => __( 'Add New type', '_dm' ),
+		'edit_item'                  => __( 'Edit type', '_dm' ),
+		'update_item'                => __( 'Update type', '_dm' ),
+		'view_item'                  => __( 'View type', '_dm' ),
+		'separate_items_with_commas' => __( 'Separate types with commas', '_dm' ),
+		'add_or_remove_items'        => __( 'Add or remove types', '_dm' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', '_dm' ),
+		'popular_items'              => __( 'Popular types', '_dm' ),
+		'search_items'               => __( 'Search types', '_dm' ),
+		'not_found'                  => __( 'Not Found', '_dm' ),
+		'no_terms'                   => __( 'No types', '_dm' ),
+		'items_list'                 => __( 'types list', '_dm' ),
+		'items_list_navigation'      => __( 'types list navigation', '_dm' ),
+	);
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => true,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => true,
+		'show_in_rest'               => true,
+	);
+	register_taxonomy( 'type', array( 'assets_post_type' ), $args );
+
+}
+add_action( 'init', 'assets_taxonomy', 0 );
+
+// Add custom fields to json response
+function slug_register_featured() {
+	register_rest_field( 'assets_post_type',
+		'link',
+		array(
+			'get_callback'    => 'get_meta_to_response',
+			'update_callback' => null,
+			'schema'          => null,
+		)
+	);
+}
+add_action( 'rest_api_init', 'slug_register_featured' );
 
 
 
@@ -131,60 +182,10 @@ add_action( 'init', 'interview_post_type', 0 );
 
 
 
-// Register Custom Taxonomy
-function assets_taxonomy() {
-
-	$labels = array(
-		'name'                       => _x( 'types', 'Taxonomy General Name', '_dm' ),
-		'singular_name'              => _x( 'type', 'Taxonomy Singular Name', '_dm' ),
-		'menu_name'                  => __( 'Type', '_dm' ),
-		'all_items'                  => __( 'All types', '_dm' ),
-		'parent_item'                => __( 'type Item', '_dm' ),
-		'parent_item_colon'          => __( 'type Item:', '_dm' ),
-		'new_item_name'              => __( 'New type Name', '_dm' ),
-		'add_new_item'               => __( 'Add New type', '_dm' ),
-		'edit_item'                  => __( 'Edit type', '_dm' ),
-		'update_item'                => __( 'Update type', '_dm' ),
-		'view_item'                  => __( 'View type', '_dm' ),
-		'separate_items_with_commas' => __( 'Separate types with commas', '_dm' ),
-		'add_or_remove_items'        => __( 'Add or remove types', '_dm' ),
-		'choose_from_most_used'      => __( 'Choose from the most used', '_dm' ),
-		'popular_items'              => __( 'Popular types', '_dm' ),
-		'search_items'               => __( 'Search types', '_dm' ),
-		'not_found'                  => __( 'Not Found', '_dm' ),
-		'no_terms'                   => __( 'No types', '_dm' ),
-		'items_list'                 => __( 'types list', '_dm' ),
-		'items_list_navigation'      => __( 'types list navigation', '_dm' ),
-	);
-	$args = array(
-		'labels'                     => $labels,
-		'hierarchical'               => true,
-		'public'                     => true,
-		'show_ui'                    => true,
-		'show_admin_column'          => true,
-		'show_in_nav_menus'          => true,
-		'show_tagcloud'              => true,
-		'show_in_rest'               => true,
-	);
-	register_taxonomy( 'type', array( 'assets_post_type' ), $args );
-
-}
-add_action( 'init', 'assets_taxonomy', 0 );
 
 
 
-// Add custom fields to json response
-function slug_register_featured() {
-	register_rest_field( 'assets_post_type',
-		'link',
-		array(
-			'get_callback'    => 'get_meta_to_response',
-			'update_callback' => null,
-			'schema'          => null,
-		)
-	);
-}
-add_action( 'rest_api_init', 'slug_register_featured' );
+
 
 function get_meta_to_response( $object, $field_name, $request ) {
 	return get_post_meta( $object[ 'id' ], $field_name, true );
