@@ -15,14 +15,14 @@ id="author" class="input" name="author" type="text" value="' . esc_attr( $commen
 
 		           ( $req ? '<span>*</span>' : '' ) .
 
-		           '<input id="email" name="email" type="text" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' />' . '</p>',
+		           '<input id="email" class="email" name="email" type="text" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' />' . '</p>',
 
 		'url' => ''
 	) ),
 
 	'comment_field' => '<p>' .
 
-	                   '<label for="comment" class="label">' . __( 'Let us know what you have to say:' ) . '</label>' .
+	                   '<label for="comment" class="label" class="label">' . __( 'Message:' ) . '</label>' .
 
 	                   '<textarea id="comment" 
 name="comment" cols="45" rows="8" aria-required="true" class="textarea"></textarea>' .
